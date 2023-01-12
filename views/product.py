@@ -4,11 +4,11 @@ PRODUCTS = [
         "name": "Loco Gordito Supreme",
         "type_id": 1,
         "date_created": "01/11/2023",
-        "suggested_price": 8.49
+        "suggested_price": 9.49
     },
     {
         "id": 2,
-        "name": "Crunch Wrap Supreme",
+        "name": "Crunchwrap Supreme",
         "type_id": 1,
         "date_created": "01/11/2023",
         "suggested_price": 5.49
@@ -22,10 +22,31 @@ PRODUCTS = [
     },
     {
         "id": 4,
-        "name": "Bean Crunch Bowl",
+        "name": "Fiery Doritos Locos Tacos",
         "type_id": 2,
         "date_created": "01/10/2023",
         "suggested_price": 0.49
+    },
+    {
+        "id": 5,
+        "name": "Beefy 5-Layer Dip",
+        "type_id": 2,
+        "date_created": "01/10/2023",
+        "suggested_price": 8.49
+    },
+    {
+        "id": 6,
+        "name": "Double Decker Supreme Taco",
+        "type_id": 2,
+        "date_created": "01/10/2023",
+        "suggested_price": 7.49
+    },
+    {
+        "id": 7,
+        "name": "Jalapeno Popper Quesarito",
+        "type_id": 2,
+        "date_created": "01/10/2023",
+        "suggested_price": 11.49
     }
 ]
 
@@ -33,18 +54,11 @@ PRODUCTS = [
 def get_all_products():
     return PRODUCTS
 
-# Function with a single parameter
-
 
 def get_single_product(id):
-    # Variable to hold the found product, if it exists
     requested_product = None
 
-    # Iterate the PRODUCTS list above. Very similar to the
-    # for..of loops you used in JavaScript.
     for product in PRODUCTS:
-        # Dictionaries in Python use [] notation to find a key
-        # instead of the dot notation that JavaScript used.
         if product["id"] == id:
             requested_product = product
 

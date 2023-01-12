@@ -4,72 +4,49 @@ from views import *
 
 
 class HandleRequests(BaseHTTPRequestHandler):
-    """Controls the functionality of any GET, PUT, POST, DELETE requests to the server
-    """
-
     def parse_url(self, path):
-        # Just like splitting a string in JavaScript. If the
-        # path is "/animals/1", the resulting list will
-        # have "" at index 0, "animals" at index 1, and "1"
-        # at index 2.
         path_params = path.split("/")
         resource = path_params[1]
         id = None
 
-        # Try to get the item at index 2
         try:
-            # Convert the string "1" to the integer 1
-            # This is the new parseInt()
             id = int(path_params[2])
         except IndexError:
-            pass  # No route parameter exists: /animals
+            pass
         except ValueError:
-            pass  # Request had trailing slash: /animals/
+            pass
 
-        return (resource, id)  # This is a tuple
-
-    # function will return entire list
-    # def do_GET(self):
-    #     """Handles GET requests to the server """
-    #     self._set_headers(200)
-
-    #     if self.path == "/metals":
-    #         response = get_all_metals()
-
-    #     # elif self.path == "/sizes":
-    #     #     response = get_all_sizes()
-
-    #     # elif self.path == "/orders":
-    #     #     response = get_all_orders()
-
-    #     # elif self.path == "/styles":
-    #     #     response = get_all_styles()
-
-    #     else:
-    #         response = []
-
-    #     self.wfile.write(json.dumps(response).encode())
+        return (resource, id)
 
     def do_GET(self):
-        """Handles GET requests to the server """
-        self._set_headers(200)
-
-        response = {}  # Default response
+        response = {}
 
         # Parse the URL and capture the tuple that is returned
         (resource, id) = self.parse_url(self.path)
 
         if resource == "products":
             if id is not None:
+                self._set_headers(200)
                 response = get_single_product(id)
 
             else:
+                self._set_headers(200)
                 response = get_all_products()
+
+        elif resource == "product_types":
+            if id is not None:
+                self._set_headers(405)
+                response = ""
+            else:
+                self._set_headers(200)
+                response = get_all_product_types()
+
+        else:
+            response = []
 
         self.wfile.write(json.dumps(response).encode())
 
     def do_POST(self):
-        """Handles POST requests to the server """
         self._set_headers(201)
 
         content_len = int(self.headers.get('content-length', 0))
