@@ -17,7 +17,6 @@ PRODUCT_TYPES = [
     }
 ]
 
-
 def get_all_product_types():
     return PRODUCT_TYPES
 

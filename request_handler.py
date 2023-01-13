@@ -2,7 +2,6 @@ import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from views import *
 
-
 class HandleRequests(BaseHTTPRequestHandler):
     def parse_url(self, path):
         path_params = path.split("/")
@@ -14,6 +13,9 @@ class HandleRequests(BaseHTTPRequestHandler):
         except IndexError:
             pass
         except ValueError:
+            if path_params[2] == 'random': 
+                id = get_product_id()
+                # id = 'random'
             pass
 
         return (resource, id)

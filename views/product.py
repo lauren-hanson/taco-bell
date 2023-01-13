@@ -1,3 +1,5 @@
+import random
+
 PRODUCTS = [
     {
         "id": 1,
@@ -50,10 +52,18 @@ PRODUCTS = [
     }
 ]
 
+def get_product_id(): 
+    """this will generate random item from list even if a dictionary has been deleted
+
+    Returns:
+        _type_: _description_
+    """
+    random_product = random.choice(PRODUCTS)
+    return random_product['id']
+    # return PRODUCTS[-1]["id"]
 
 def get_all_products():
     return PRODUCTS
-
 
 def get_single_product(id):
     requested_product = None
