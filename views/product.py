@@ -25,38 +25,38 @@ PRODUCTS = [
     {
         "id": 4,
         "name": "Fiery Doritos Locos Tacos",
-        "type_id": 2,
+        "type_id": 3,
         "date_created": "01/10/2023",
         "suggested_price": 0.49
     },
     {
         "id": 5,
         "name": "Beefy 5-Layer Dip",
-        "type_id": 2,
+        "type_id": 3,
         "date_created": "01/10/2023",
         "suggested_price": 8.49
     },
     {
         "id": 6,
         "name": "Double Decker Supreme Taco",
-        "type_id": 2,
+        "type_id": 3,
         "date_created": "01/10/2023",
         "suggested_price": 7.49
     },
     {
         "id": 7,
         "name": "Jalapeno Popper Quesarito",
-        "type_id": 2,
+        "type_id": 5,
         "date_created": "01/10/2023",
         "suggested_price": 11.49
     }
 ]
 
 def get_product_id(): 
-    """this will generate random item from list even if a dictionary has been deleted
+    """this will generate random item even if a dictionary has been deleted
 
     Returns:
-        _type_: _description_
+        random dictionary from the list
     """
     random_product = random.choice(PRODUCTS)
     return random_product['id']

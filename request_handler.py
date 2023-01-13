@@ -2,6 +2,7 @@ import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from views import *
 
+
 class HandleRequests(BaseHTTPRequestHandler):
     def parse_url(self, path):
         path_params = path.split("/")
@@ -13,7 +14,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         except IndexError:
             pass
         except ValueError:
-            if path_params[2] == 'random': 
+            if path_params[2] == 'random':
                 id = get_product_id()
                 # id = 'random'
             pass
@@ -48,38 +49,38 @@ class HandleRequests(BaseHTTPRequestHandler):
 
         self.wfile.write(json.dumps(response).encode())
 
-    def do_POST(self):
-        self._set_headers(201)
-
-        content_len = int(self.headers.get('content-length', 0))
-        post_body = self.rfile.read(content_len)
-        response = {"payload": post_body}
-        self.wfile.write(json.dumps(response).encode())
-
     # def do_POST(self):
     #     self._set_headers(201)
+
     #     content_len = int(self.headers.get('content-length', 0))
     #     post_body = self.rfile.read(content_len)
+    #     response = {"payload": post_body}
+    #     self.wfile.write(json.dumps(response).encode())
 
-    #     # Convert JSON string to a Python dictionary
-    #     post_body = json.loads(post_body)
+    def do_POST(self):
+        self._set_headers(201)
+        content_len = int(self.headers.get('content-length', 0))
+        post_body = self.rfile.read(content_len)
 
-    #     # Parse the URL
-    #     (resource, id) = self.parse_url(self.path)
+        # Convert JSON string to a Python dictionary
+        post_body = json.loads(post_body)
 
-    #     # Initialize new response
-    #     new_order = None
+        # Parse the URL
+        (resource, id) = self.parse_url(self.path)
+
+        # Initialize new response
+        new_post = None
         # new_location = None
         # new_employee = None
 
-        # Add a new order to the list. Don't worry about
-        # the orange squiggle, you'll define the create_order
-        # function next.
-        # if resource == "orders":
-        #     new_order = create_order(post_body)
+        '''Add a new order to the list. Don't worry about
+        the orange squiggle, you'll define the create_order
+        function next.'''
+        if resource == "product_types":
+            new_post = create_product_type(post_body)
 
-        # Encode the new order and send in order
-        # self.wfile.write(json.dumps(new_order).encode())
+        """Encode the new order and send in order"""
+        self.wfile.write(json.dumps(new_post).encode())
 
     # def do_DELETE(self):
     #     # Set a 204 response code
