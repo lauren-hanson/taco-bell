@@ -1,4 +1,4 @@
-PRODUCT_TYPES = [
+TYPES = [
     {
         "id": 1,
         "description": "burrito"
@@ -22,31 +22,31 @@ PRODUCT_TYPES = [
 ]
 
 
-def get_all_product_types():
-    return PRODUCT_TYPES
+def get_all_types():
+    return TYPES
 
 
-def get_single_product_type(id):
-    requested_product_types = None
+def get_single_type(id):
+    requested_types = None
 
-    for product_type in PRODUCT_TYPES:
-        if product_type["id"] == id:
-            requested_product = product_type
+    for type in TYPES:
+        if type["id"] == id:
+            requested_product = type
 
-    return requested_product_types
+    return requested_types
 
-def create_product_type(product_type):
-    # Get the id value of the last product_type in the list
-    max_id = PRODUCT_TYPES[-1]["id"]
+def create_type(type):
 
-    # Add 1 to whatever that number is
-    new_id = max_id + 1
-
-    # Add an `id` property to the product_type dictionary
-    product_type["id"] = new_id
-
-    # Add the product_type dictionary to the list
-    PRODUCT_TYPES.append(product_type)
-
-    # Return the dictionary with `id` property added
-    return product_type
+    if "description" in type: 
+    # Get the id value of the last type in the list
+        max_id = TYPES[-1]["id"]
+        # Add 1 to whatever that number is
+        new_id = max_id + 1
+        # Add an `id` property to the type dictionary
+        type["id"] = new_id
+        # Add the type dictionary to the list
+        TYPES.append(type)
+        # Return the dictionary with `id` property added
+        return type
+    else: 
+        return {}

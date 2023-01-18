@@ -36,13 +36,13 @@ class HandleRequests(BaseHTTPRequestHandler):
                 self._set_headers(200)
                 response = get_all_products()
 
-        elif resource == "product_types":
+        elif resource == "types":
             if id is not None:
                 self._set_headers(405)
                 response = ""
             else:
                 self._set_headers(200)
-                response = get_all_product_types()
+                response = get_all_types()
 
         else:
             response = []
@@ -58,7 +58,7 @@ class HandleRequests(BaseHTTPRequestHandler):
     #     self.wfile.write(json.dumps(response).encode())
 
     def do_POST(self):
-        self._set_headers(201)
+        # self._set_headers(201)
         content_len = int(self.headers.get('content-length', 0))
         post_body = self.rfile.read(content_len)
 
@@ -76,25 +76,28 @@ class HandleRequests(BaseHTTPRequestHandler):
         '''Add a new order to the list. Don't worry about
         the orange squiggle, you'll define the create_order
         function next.'''
-        if resource == "product_types":
-            new_post = create_product_type(post_body)
-
+        if resource == "types":
+            new_post = create_type(post_body)
+            if "id" in new_post and "description" in new_post:
+                self._set_headers(201)
+            else: 
+                self._set_headers(400)
         """Encode the new order and send in order"""
         self.wfile.write(json.dumps(new_post).encode())
 
-    # def do_DELETE(self):
-    #     # Set a 204 response code
-    #     self._set_headers(204)
+    def do_DELETE(self):
+        # Set a 204 response code
+        self._set_headers(204)
 
-    #     # Parse the URL
-    #     (resource, id) = self.parse_url(self.path)
+        # Parse the URL
+        (resource, id) = self.parse_url(self.path)
 
-    #     # Delete a single order from the list
-    #     if resource == "orders":
-    #         delete_order(id)
+        # Delete a single order from the list
+        if resource == "products":
+            delete_product(id)
 
-    #     # Encode the new order and send in response
-    #     self.wfile.write("".encode())
+        # Encode the new order and send in response
+        self.wfile.write("".encode())
 
     def do_PUT(self):
         """Handles PUT requests to the server """
